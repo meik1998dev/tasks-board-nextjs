@@ -1,15 +1,41 @@
-import { Grid } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import React from 'react';
-import {Stage} from './Stage';
+import { Stage } from './Stage';
 
 const TasksBoard = () => {
    return (
-      <Grid container>
-         <Grid item><Stage/></Grid>
-         <Grid item></Grid>
-         <Grid item></Grid>
-         <Grid item></Grid>
-      </Grid>
+      <Box paddingTop={20} alignItems={'center'} justifyContent='center'>
+         <Grid justifyContent={'center'} container spacing={10}>
+            <Grid item>
+               <Stage
+                  title='To Do'
+                  description='Things that need to be done.'
+                  color='#F66568'
+               />
+            </Grid>
+            <Grid item>
+               <Stage
+                  title='Doing'
+                  description='What you are doing'
+                  color='#FFC773'
+               />
+            </Grid>
+            <Grid item>
+               <Stage
+                  title='Done'
+                  description='Already done.'
+                  color='#6BE795'
+               />
+            </Grid>
+            <Grid item>
+               <Stage
+                  title='Archive'
+                  description='Not important but need to write down.'
+                  color='#7389FF'
+               />
+            </Grid>
+         </Grid>
+      </Box>
    );
 };
 

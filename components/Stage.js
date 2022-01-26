@@ -2,12 +2,12 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-export const Stage = (props) => {
+export const Stage = ({ title, description, color }) => {
    return (
       <StageContainer>
-         <StageHeader>
-            <Title>Stage Title</Title>
-            <Description>description</Description>
+         <StageHeader color={color}>
+            <Title>{title}</Title>
+            <Description>{description}</Description>
          </StageHeader>
          <TasksList>
             <Task>
@@ -20,7 +20,7 @@ export const Stage = (props) => {
                <TaskTitle>
                   Task description is very simple to descripe
                </TaskTitle>
-               <FontAwesomeIcon icon={["far", "coffee"]} />
+               <FontAwesomeIcon icon={['far', 'coffee']} />
             </Task>
             <Task>
                <TaskTitle>
@@ -42,21 +42,18 @@ const StageContainer = styled.div`
    flex-direction: column;
    align-items: flex-start;
    padding: 32px;
-   position: absolute;
    width: 414px;
    min-height: 334px;
-   left: 37px;
-   top: 265px;
    background: #f8f9fa;
    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
    border-radius: 16px;
 `;
 
 const StageHeader = styled.div((props) => ({
-   borderLeft: '8px solid black',
+   borderLeft: `8px solid ${props.color || 'black'}`,
    paddingLeft: '15px',
    height: '56px',
-   color: props.color || 'black',
+   color: 'black',
    display: 'flex',
    flexDirection: 'column',
 }));
