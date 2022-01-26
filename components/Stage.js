@@ -6,6 +6,7 @@ export const Stage = () => {
       <div>
          <StageHeader>
             <Title>Stage Title</Title>
+            {/* <Description>description</Description> */}
          </StageHeader>
       </div>
    );
