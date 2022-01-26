@@ -1,8 +1,15 @@
 import { Box, Grid } from '@mui/material';
 import React from 'react';
+import {   ReactQueryDevtools,
+  useQuery } from 'react-query';
+import { fetchTodos } from '../configs/apis';
 import { Stage } from './Stage';
 
 const TasksBoard = () => {
+   const query = useQuery('todos', fetchTodos);
+
+   console.log(query);
+
    return (
       <Box paddingTop={20} alignItems={'center'} justifyContent='center'>
          <Grid justifyContent={'center'} container spacing={10}>
@@ -36,6 +43,7 @@ const TasksBoard = () => {
             </Grid>
          </Grid>
       </Box>
+      
    );
 };
 

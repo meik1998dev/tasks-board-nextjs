@@ -20,7 +20,6 @@ export const Stage = ({ title, description, color }) => {
                <TaskTitle>
                   Task description is very simple to descripe
                </TaskTitle>
-               <FontAwesomeIcon icon={['far', 'coffee']} />
             </Task>
             <Task>
                <TaskTitle>
