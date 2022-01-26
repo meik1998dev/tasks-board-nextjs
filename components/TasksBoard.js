@@ -5,14 +5,22 @@ import { fetchTodos } from '../configs/apis';
 import { Stage } from './Stage';
 
 const TasksBoard = () => {
-   const query = useQuery('todos', fetchTodos);
+   const { isLoading, isError, data, error } = useQuery('todos', fetchTodos);
+
+   if (isLoading) {
+      return <span>Loading...</span>;
+   }
+
+   if (isError) {
+      return <span>Error: {error.message}</span>;
+   }
 
    return (
       <Box paddingTop={20} alignItems={'center'} justifyContent='center'>
          <Grid justifyContent={'center'} container spacing={10}>
             <Grid item>
                <Stage
-                  data={query.data.filter((task) => task.status === 'todo')}
+                  data={data.filter((task) => task.status === 'todo')}
                   title='To Do'
                   description='Things that need to be done.'
                   color='#F66568'
@@ -20,7 +28,7 @@ const TasksBoard = () => {
             </Grid>
             <Grid item>
                <Stage
-                  data={query.data.filter((task) => task.status === 'doing')}
+                  data={data.filter((task) => task.status === 'doing')}
                   title='Doing'
                   description='What you are doing'
                   color='#FFC773'
@@ -28,7 +36,7 @@ const TasksBoard = () => {
             </Grid>
             <Grid item>
                <Stage
-                  data={query.data.filter((task) => task.status === 'done')}
+                  data={data.filter((task) => task.status === 'done')}
                   title='Done'
                   description='Already done.'
                   color='#6BE795'
@@ -36,7 +44,7 @@ const TasksBoard = () => {
             </Grid>
             <Grid item>
                <Stage
-                  data={query.data.filter((task) => task.status === 'archive')}
+                  data={data.filter((task) => task.status === 'archive')}
                   title='Archive'
                   description='Not important but need to write down.'
                   color='#7389FF'

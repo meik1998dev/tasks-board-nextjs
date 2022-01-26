@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 
 export const Stage = ({ title, description, color, data }) => {
    return (
@@ -13,6 +14,9 @@ export const Stage = ({ title, description, color, data }) => {
             {data?.map(({ _id, title }) => (
                <Task key={_id} title={title}>
                   <TaskTitle>{title}</TaskTitle>
+                  <MenuIcon>
+                     <FontAwesomeIcon icon={faEllipsisV} />
+                  </MenuIcon>
                </Task>
             ))}
          </TasksList>
@@ -77,6 +81,9 @@ const Task = styled.div`
    padding: 16px 24px;
    margin: 20px 0;
    width: 100%;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
 `;
 
 const TaskTitle = styled.p`
@@ -85,4 +92,8 @@ const TaskTitle = styled.p`
    font-weight: normal;
    font-size: 16px;
    line-height: 160%;
+`;
+
+const MenuIcon = styled.div`
+   cursor: pointer;
 `;
