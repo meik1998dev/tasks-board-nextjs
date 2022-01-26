@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-export const Stage = ({ title, description, color }) => {
+export const Stage = ({ title, description, color, data }) => {
    return (
       <StageContainer>
          <StageHeader color={color}>
@@ -10,27 +10,11 @@ export const Stage = ({ title, description, color }) => {
             <Description>{description}</Description>
          </StageHeader>
          <TasksList>
-            <Task>
-               <TaskTitle>
-                  Task description is very simple to sdfaaaaa aa aaaaaa aaaaaaaa
-                  aaaaaa aaaaaaaaa a d escr ipe
-               </TaskTitle>
-            </Task>
-            <Task>
-               <TaskTitle>
-                  Task description is very simple to descripe
-               </TaskTitle>
-            </Task>
-            <Task>
-               <TaskTitle>
-                  Task description is very simple to descripe
-               </TaskTitle>
-            </Task>
-            <Task>
-               <TaskTitle>
-                  Task description is very simple to descripe
-               </TaskTitle>
-            </Task>
+            {data?.map(({ _id, title }) => (
+               <Task key={_id} title={title}>
+                  <TaskTitle>{title}</TaskTitle>
+               </Task>
+            ))}
          </TasksList>
       </StageContainer>
    );
