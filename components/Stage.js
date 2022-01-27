@@ -61,7 +61,7 @@ const StageContainer = styled.div`
    flex-direction: column;
    align-items: flex-start;
    padding: 32px;
-   width: 414px;
+   width: 400px;
    min-height: 334px;
    background: #f8f9fa;
    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);

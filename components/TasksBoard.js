@@ -53,7 +53,7 @@ const TasksBoard = () => {
       <DragDropContext onDragEnd={onDragEnd}>
          {todos && (
             <Box paddingTop={5} alignItems={'center'} justifyContent='center'>
-               <Grid justifyContent={'center'} container spacing={10}>
+               <Grid justifyContent={'center'} container spacing={3}>
                   {stages.map(({ type, title, description, color }) => (
                      <Grid key={type} item>
                         <Stage

@@ -108,7 +108,7 @@ const Task = styled.div`
    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.04),
       0px 2px 6px rgba(0, 0, 0, 0.04), 0px 0px 1px rgba(0, 0, 0, 0.04);
    border-radius: 16px;
-   padding: 16px 24px;
+   padding: 3px 24px;
    margin: 20px 0;
    width: 100%;
    display: flex;
