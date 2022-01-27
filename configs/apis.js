@@ -68,3 +68,21 @@ export const addTodos = async ({ title, subject }) => {
       console.log(error);
    }
 };
+
+export const updateTodo = async ({ id, title, subject }) => {
+   try {
+      const res = await axios.patch(
+         BASE_URL + 'todos/' + id,
+         {
+            title,
+            subject,
+         },
+         {
+            params: { key: API_KEY },
+         },
+      );
+      return res.data;
+   } catch (error) {
+      console.log(error);
+   }
+};

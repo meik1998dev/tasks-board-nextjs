@@ -31,14 +31,18 @@ export const Stage = ({ title, description, color, data, type }) => {
                         : '#f8f9fa',
                   }}
                   {...provided.droppableProps}>
-                  {data?.map(({ _id, title }, index) => (
+                  {data?.map(({ _id, title, subject }, index) => (
                      <Draggable key={_id} index={index} draggableId={_id}>
                         {(provided, snapshot) => (
                            <div
                               ref={provided.innerRef}
                               {...provided.draggableProps}
                               {...provided.dragHandleProps}>
-                              <TaskCard _id={_id} title={title} />
+                              <TaskCard
+                                 subject={subject}
+                                 _id={_id}
+                                 title={title}
+                              />
                            </div>
                         )}
                      </Draggable>
