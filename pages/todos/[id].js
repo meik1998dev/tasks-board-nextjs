@@ -3,6 +3,7 @@ import { useQuery } from 'react-query';
 import { fetchTodo } from '../../configs/apis';
 import { useRouter } from 'next/router';
 import { Grid } from '@mui/material';
+import { Loader } from '../../components/Loader';
 
 const TaskDetails = () => {
    const router = useRouter();
@@ -10,11 +11,8 @@ const TaskDetails = () => {
    const { isLoading, isError, data, error } = useQuery('todo', () =>
       fetchTodo(router.query.id),
    );
-   console.log(data);
 
-   if (isLoading) {
-      return <span>Loading...</span>;
-   }
+   if (isLoading) return <Loader />;
 
    if (isError) {
       return <span>Error: {error.message}</span>;
