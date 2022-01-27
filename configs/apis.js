@@ -11,3 +11,13 @@ export const fetchTodos = async () => {
       console.log(error);
    }
 };
+
+export const deleteTodo = async (id) => {
+   try {
+      await axios.delete(BASE_URL + 'todos/' + id, {
+         params: { key: API_KEY },
+      });
+   } catch (error) {
+      console.log(error);
+   }
+};

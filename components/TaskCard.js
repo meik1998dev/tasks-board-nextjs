@@ -8,21 +8,26 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { Box, Popover, Typography } from '@mui/material';
 import Link from 'next/link';
+import { deleteTodo } from '../configs/apis';
+import { useMutation, useQueryClient } from 'react-query';
 
 export const TaskCard = ({ _id, title }) => {
+   //Popover states manegment
    const [anchorEl, setAnchorEl] = React.useState(null);
-
-   const handleClick = (event) => {
-      setAnchorEl(event.currentTarget);
-   };
-
-   const handleClose = () => {
-      setAnchorEl(null);
-   };
-
+   const queryClient = useQueryClient();
+   const handleClick = (event) => setAnchorEl(event.currentTarget);
+   const handleClose = () => setAnchorEl(null);
    const open = Boolean(anchorEl);
 
-   console.log(anchorEl);
+   //deleting task
+   const mutation = useMutation((id) => deleteTodo(id), {
+      onSuccess: () => queryClient.invalidateQueries('todos'),
+   });
+
+   if (mutation.isLoading) {
+      return <h1>Deleting ...</h1>;
+   }
+
    return (
       <Task key={_id} title={title}>
          <TaskTitle>{title}</TaskTitle>
@@ -40,17 +45,18 @@ export const TaskCard = ({ _id, title }) => {
                }}>
                <Box style={{ width: '150px' }} padding={2}>
                   <Box
+                     onClick={() => {
+                        mutation.mutate(_id);
+                        handleClose();
+                     }}
                      justifyContent='space-around'
                      display='flex'
                      marginBottom={2}
                      alignItems='center'
+                     style={{ cursor: 'pointer' }}
                      flexDirection='row'>
                      <Typography>Delete</Typography>
-                     <FontAwesomeIcon
-                        style={{ cursor: 'pointer' }}
-                        color='red'
-                        icon={faTrashAlt}
-                     />
+                     <FontAwesomeIcon color='red' icon={faTrashAlt} />
                   </Box>
                   <Box>
                      <Link href=''>
@@ -100,7 +106,6 @@ const PopoverMenu = styled(Popover)(({ theme }) => ({
    background: '#FFFFFF',
    width: 'fit-content',
    boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
-   backdropFlter: 'blur(4px)',
    height: '151px',
    width: '171px',
 }));
