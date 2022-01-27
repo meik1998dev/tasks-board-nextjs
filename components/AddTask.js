@@ -2,12 +2,33 @@ import React from 'react';
 import Modal from '@mui/material/Modal';
 import styled from '@emotion/styled';
 import { TextField } from '@mui/material';
+import { addTodos } from '../configs/apis';
+import { useMutation, useQueryClient } from 'react-query';
 
 export const AddTask = ({ visible, close }) => {
    const [inputsValue, setInputsValue] = React.useState({
       title: '',
       subject: '',
    });
+
+   const queryClient = useQueryClient();
+
+   const mutation = useMutation(
+      async (data) => {
+         addTodos(data);
+      },
+      {
+         onSuccess: () => {
+            setTimeout(() => {
+               queryClient.refetchQueries();
+            }, 2000);
+         },
+      },
+   );
+
+   if (mutation.isLoading) {
+      return <span>Loading...</span>;
+   }
 
    return (
       <Modal open={visible} onClose={close}>
@@ -31,7 +52,16 @@ export const AddTask = ({ visible, close }) => {
                   })
                }
             />
-            <Button>Add</Button>
+            <Button
+               onClick={() => {
+                  mutation.mutateAsync({
+                     title: inputsValue.title,
+                     subject: inputsValue.subject,
+                  });
+                  close();
+               }}>
+               Add
+            </Button>
          </ModalContainer>
       </Modal>
    );

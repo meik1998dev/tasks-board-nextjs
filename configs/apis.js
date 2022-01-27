@@ -35,7 +35,7 @@ export const fetchTodo = async (id) => {
    }
 };
 
-export const updateTodoStatus = async ({id , status}) => {
+export const updateTodoStatus = async ({ id, status }) => {
    try {
       await axios.patch(
          BASE_URL + 'todos/' + id,
@@ -46,6 +46,24 @@ export const updateTodoStatus = async ({id , status}) => {
             params: { key: API_KEY },
          },
       );
+   } catch (error) {
+      console.log(error);
+   }
+};
+
+export const addTodos = async ({ title, subject }) => {
+   try {
+      const res = await axios.post(
+         BASE_URL + 'todos',
+         {
+            title,
+            subject,
+         },
+         {
+            params: { key: API_KEY },
+         },
+      );
+      return res.data;
    } catch (error) {
       console.log(error);
    }

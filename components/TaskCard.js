@@ -100,6 +100,9 @@ const TaskTitle = styled.p`
    font-style: normal;
    font-weight: normal;
    font-size: 16px;
+   width: 100%;
+   line-break: anywhere;
+   padding-right: 15px;
    line-height: 160%;
 `;
 
