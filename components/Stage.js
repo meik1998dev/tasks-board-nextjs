@@ -4,7 +4,7 @@ import { TaskCard } from './TaskCard';
 import { Droppable } from 'react-beautiful-dnd';
 import { Draggable } from 'react-beautiful-dnd';
 
-export const Stage = ({ title, description, color, data , type }) => {
+export const Stage = ({ title, description, color, data, type }) => {
    return (
       <StageContainer>
          <StageHeader color={color}>
@@ -16,6 +16,7 @@ export const Stage = ({ title, description, color, data , type }) => {
                <TasksList
                   ref={provided.innerRef}
                   style={{
+                     transition: 'ease 0.3s',
                      backgroundColor: snapshot.isDraggingOver
                         ? color + '1a'
                         : '#f8f9fa',
