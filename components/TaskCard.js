@@ -30,6 +30,10 @@ export const TaskCard = ({ _id, subject, title }) => {
       onSuccess: () => queryClient.invalidateQueries('todos'),
    });
 
+   if (mutation.isLoading) {
+      return <h1>Deleting ...</h1>;
+   }
+
    return (
       <Task title={title}>
          <TaskTitle onClick={() => router.push(`todos/${_id}`)}>
