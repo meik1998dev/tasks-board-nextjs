@@ -1,6 +1,6 @@
 import { Box, Grid } from '@mui/material';
 import React from 'react';
-import { ReactQueryDevtools, useQuery } from 'react-query';
+import { useQuery } from 'react-query';
 import { fetchTodos } from '../configs/apis';
 import { Stage } from './Stage';
 

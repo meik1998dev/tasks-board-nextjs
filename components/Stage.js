@@ -11,7 +11,7 @@ export const Stage = ({ title, description, color, data }) => {
          </StageHeader>
          <TasksList>
             {data?.map(({ _id, title }) => (
-               <TaskCard _id={_id} title={title} />
+               <TaskCard key={_id} _id={_id} title={title} />
             ))}
          </TasksList>
       </StageContainer>

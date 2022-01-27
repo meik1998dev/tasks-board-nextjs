@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import styled from '@emotion/styled';
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -12,6 +13,8 @@ import { deleteTodo } from '../configs/apis';
 import { useMutation, useQueryClient } from 'react-query';
 
 export const TaskCard = ({ _id, title }) => {
+   const router = useRouter();
+
    //Popover states manegment
    const [anchorEl, setAnchorEl] = React.useState(null);
    const queryClient = useQueryClient();
@@ -23,14 +26,15 @@ export const TaskCard = ({ _id, title }) => {
    const mutation = useMutation((id) => deleteTodo(id), {
       onSuccess: () => queryClient.invalidateQueries('todos'),
    });
-
    if (mutation.isLoading) {
       return <h1>Deleting ...</h1>;
    }
 
    return (
-      <Task key={_id} title={title}>
-         <TaskTitle>{title}</TaskTitle>
+      <Task title={title}>
+         <TaskTitle onClick={() => router.push(`todos/${_id}`)}>
+            {title}
+         </TaskTitle>
          <MenuIcon>
             <FontAwesomeIcon onClick={handleClick} icon={faEllipsisV} />
             <PopoverMenu
@@ -91,6 +95,7 @@ const Task = styled.div`
 `;
 
 const TaskTitle = styled.p`
+   cursor: pointer;
    font-family: Roboto;
    font-style: normal;
    font-weight: normal;
