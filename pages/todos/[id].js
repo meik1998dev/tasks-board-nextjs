@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { useQuery } from 'react-query';
+import { NextSeo } from 'next-seo';
 import { fetchTodo } from '../../configs/apis';
 import { useRouter } from 'next/router';
 import { Grid } from '@mui/material';
@@ -12,31 +13,34 @@ const TaskDetails = () => {
       fetchTodo(router.query.id),
    );
 
-   if (isLoading) return <Loader />;
+   if (!isLoading) return <Loader />;
 
    if (isError) {
       return <span>Error: {error.message}</span>;
    }
 
    return (
-      <Wrapper>
-         <Header>Task Details</Header>
-         <TaskContainer>
-            <Section>
-               <Title>Name</Title>
-               <Paragrapgh>{data.title}</Paragrapgh>
-            </Section>
-            <Section>
-               <Title>Subject</Title>
-               <Paragrapgh>{data.subject}</Paragrapgh>
-            </Section>
-            <Section>
-               <Title>States</Title>
-               <Paragrapgh>{data.status}</Paragrapgh>
-            </Section>
-         </TaskContainer>
-         <BackBtn onClick={() => router.back()}>Back</BackBtn>
-      </Wrapper>
+      <>
+         <NextSeo title='Task details' description='Todos Board' />
+         <Wrapper>
+            <Header>Task Details</Header>
+            <TaskContainer>
+               <Section>
+                  <Title>Name</Title>
+                  <Paragrapgh>{data.title}</Paragrapgh>
+               </Section>
+               <Section>
+                  <Title>Subject</Title>
+                  <Paragrapgh>{data.subject}</Paragrapgh>
+               </Section>
+               <Section>
+                  <Title>States</Title>
+                  <Paragrapgh>{data.status}</Paragrapgh>
+               </Section>
+            </TaskContainer>
+            <BackBtn onClick={() => router.back()}>Back</BackBtn>
+         </Wrapper>
+      </>
    );
 };
 
