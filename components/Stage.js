@@ -3,13 +3,22 @@ import styled from '@emotion/styled';
 import { TaskCard } from './TaskCard';
 import { Droppable } from 'react-beautiful-dnd';
 import { Draggable } from 'react-beautiful-dnd';
+import add_icon from '../assets/add_icon.svg';
+import Image from 'next/image';
+import { AddTask } from './AddTask';
 
 export const Stage = ({ title, description, color, data, type }) => {
+   const [isAddMode, setIsAddMode] = React.useState(false);
    return (
       <StageContainer>
          <StageHeader color={color}>
-            <Title>{title}</Title>
-            <Description>{description}</Description>
+            <div>
+               <Title>{title}</Title>
+               <Description>{description}</Description>
+            </div>
+            {type === 'todo' && (
+               <Image onClick={() => setIsAddMode(true)} src={add_icon} />
+            )}
          </StageHeader>
          <Droppable droppableId={type}>
             {(provided, snapshot) => (
@@ -38,6 +47,7 @@ export const Stage = ({ title, description, color, data, type }) => {
                </TasksList>
             )}
          </Droppable>
+         <AddTask close={() => setIsAddMode(false)} visible={isAddMode} />
       </StageContainer>
    );
 };
@@ -58,9 +68,11 @@ const StageHeader = styled.div((props) => ({
    borderLeft: `8px solid ${props.color || 'black'}`,
    paddingLeft: '15px',
    height: '56px',
+   width: '-webkit-fill-available',
    color: 'black',
    display: 'flex',
-   flexDirection: 'column',
+   flexDirection: 'row',
+   justifyContent: 'space-between',
 }));
 
 const Title = styled.p`
