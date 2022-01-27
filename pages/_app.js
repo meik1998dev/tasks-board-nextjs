@@ -1,9 +1,7 @@
 import Head from 'next/head';
-import {
-   QueryClient,
-   QueryClientProvider,
-} from 'react-query';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import '../styles/globals.css';
+import styled from '@emotion/styled';
 
 function MyApp({ Component, pageProps }) {
    const queryClient = new QueryClient();
@@ -24,9 +22,23 @@ function MyApp({ Component, pageProps }) {
                href='https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap'
                rel='stylesheet'></link>
          </Head>
+         <Header>TODO LIST</Header>
          <Component {...pageProps} />
       </QueryClientProvider>
    );
 }
 
 export default MyApp;
+
+const Header = styled.h1`
+   font-family: Open Sans;
+   font-style: normal;
+   font-weight: bold;
+   font-size: 48px;
+   line-height: 65px;
+   display: flex;
+   align-items: center;
+   letter-spacing: 0.08em;
+   width: fit-content;
+   margin: 50px auto 20px;
+`;
