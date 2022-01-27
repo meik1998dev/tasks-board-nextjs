@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';
+import { TaskCard } from './TaskCard';
 
 export const Stage = ({ title, description, color, data }) => {
    return (
@@ -12,12 +11,7 @@ export const Stage = ({ title, description, color, data }) => {
          </StageHeader>
          <TasksList>
             {data?.map(({ _id, title }) => (
-               <Task key={_id} title={title}>
-                  <TaskTitle>{title}</TaskTitle>
-                  <MenuIcon>
-                     <FontAwesomeIcon icon={faEllipsisV} />
-                  </MenuIcon>
-               </Task>
+               <TaskCard _id={_id} title={title} />
             ))}
          </TasksList>
       </StageContainer>
@@ -71,29 +65,4 @@ const TasksList = styled.div`
    flex-direction: column;
    width: 100%;
    margin-top: 10px;
-`;
-
-const Task = styled.div`
-   background: #ffffff;
-   box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.04),
-      0px 2px 6px rgba(0, 0, 0, 0.04), 0px 0px 1px rgba(0, 0, 0, 0.04);
-   border-radius: 16px;
-   padding: 16px 24px;
-   margin: 20px 0;
-   width: 100%;
-   display: flex;
-   justify-content: space-between;
-   align-items: center;
-`;
-
-const TaskTitle = styled.p`
-   font-family: Roboto;
-   font-style: normal;
-   font-weight: normal;
-   font-size: 16px;
-   line-height: 160%;
-`;
-
-const MenuIcon = styled.div`
-   cursor: pointer;
 `;
