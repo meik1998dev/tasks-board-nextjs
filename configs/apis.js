@@ -34,3 +34,19 @@ export const fetchTodo = async (id) => {
       console.log(error);
    }
 };
+
+export const updateTodoStatus = async ({id , status}) => {
+   try {
+      await axios.patch(
+         BASE_URL + 'todos/' + id,
+         {
+            status: status,
+         },
+         {
+            params: { key: API_KEY },
+         },
+      );
+   } catch (error) {
+      console.log(error);
+   }
+};
