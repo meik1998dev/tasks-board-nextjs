@@ -11,8 +11,11 @@ import { Box, Popover, Typography } from '@mui/material';
 import Link from 'next/link';
 import { deleteTodo } from '../configs/apis';
 import { useMutation, useQueryClient } from 'react-query';
+import { EditTask } from './EditTask';
 
-export const TaskCard = ({ _id, title }) => {
+export const TaskCard = ({ _id, subject, title }) => {
+   const [isEditMode, setIsEditMode] = React.useState(false);
+
    const router = useRouter();
 
    //Popover states manegment
@@ -26,9 +29,6 @@ export const TaskCard = ({ _id, title }) => {
    const mutation = useMutation((id) => deleteTodo(id), {
       onSuccess: () => queryClient.invalidateQueries('todos'),
    });
-   if (mutation.isLoading) {
-      return <h1>Deleting ...</h1>;
-   }
 
    return (
       <Task title={title}>
@@ -47,7 +47,7 @@ export const TaskCard = ({ _id, title }) => {
                   vertical: 'bottom',
                   horizontal: 'left',
                }}>
-               <Box style={{ width: '150px' }} padding={2}>
+               <Box style={{ width: '120px' }}>
                   <Box
                      onClick={() => {
                         mutation.mutate(_id);
@@ -57,25 +57,35 @@ export const TaskCard = ({ _id, title }) => {
                      display='flex'
                      marginBottom={2}
                      alignItems='center'
-                     style={{ cursor: 'pointer' }}
+                     style={{ cursor: 'pointer', margin: 0 }}
                      flexDirection='row'>
-                     <Typography>Delete</Typography>
-                     <FontAwesomeIcon color='red' icon={faTrashAlt} />
+                     <p>Delete</p>
+                     <FontAwesomeIcon color='red' size='sm' icon={faTrashAlt} />
                   </Box>
-                  <Box>
-                     <Link href=''>
-                        <Box
-                           justifyContent='space-around'
-                           display='flex'
-                           alignItems='center'
-                           flexDirection='row'>
-                           <Typography>Edit</Typography>
-                           <FontAwesomeIcon color='teal' icon={faPen} />
-                        </Box>
-                     </Link>
+                  <Box
+                     onClick={() => {
+                        setIsEditMode(true);
+                        handleClose();
+                     }}>
+                     <Box
+                        justifyContent='space-around'
+                        display='flex'
+                        style={{ cursor: 'pointer', margin: 0 }}
+                        alignItems='center'
+                        flexDirection='row'>
+                        <p>Edit</p>
+                        <FontAwesomeIcon color='teal' size='sm' icon={faPen} />
+                     </Box>
                   </Box>
                </Box>
             </PopoverMenu>
+            <EditTask
+               title={title}
+               subject={subject}
+               close={() => setIsEditMode(false)}
+               visible={isEditMode}
+               id={_id}
+            />
          </MenuIcon>
       </Task>
    );
@@ -100,17 +110,20 @@ const TaskTitle = styled.p`
    font-style: normal;
    font-weight: normal;
    font-size: 16px;
+   width: 100%;
+   line-break: anywhere;
+   padding-right: 15px;
    line-height: 160%;
 `;
 
 const MenuIcon = styled.div`
    cursor: pointer;
+   width: 2%;
 `;
 
 const PopoverMenu = styled(Popover)(({ theme }) => ({
    background: '#FFFFFF',
    width: 'fit-content',
-   boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
    height: '151px',
    width: '171px',
 }));
