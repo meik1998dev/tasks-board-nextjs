@@ -31,7 +31,7 @@ export const TaskCard = ({ _id, subject, title }) => {
    });
 
    if (mutation.isLoading) {
-      return <h1>Deleting ...</h1>;
+      return <p>Deleting ...</p>;
    }
 
    return (
@@ -64,7 +64,11 @@ export const TaskCard = ({ _id, subject, title }) => {
                      style={{ cursor: 'pointer', margin: 0 }}
                      flexDirection='row'>
                      <p>Delete</p>
-                     <FontAwesomeIcon color='red' size='sm' icon={faTrashAlt} />
+                     <FontAwesomeIcon
+                        color='red'
+                        style={{ width: '20px' }}
+                        icon={faTrashAlt}
+                     />
                   </Box>
                   <Box
                      onClick={() => {
@@ -78,7 +82,11 @@ export const TaskCard = ({ _id, subject, title }) => {
                         alignItems='center'
                         flexDirection='row'>
                         <p>Edit</p>
-                        <FontAwesomeIcon color='teal' size='sm' icon={faPen} />
+                        <FontAwesomeIcon
+                           color='teal'
+                           style={{ width: '20px' }}
+                           icon={faPen}
+                        />
                      </Box>
                   </Box>
                </Box>
