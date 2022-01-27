@@ -1,19 +1,42 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { TaskCard } from './TaskCard';
+import { Droppable } from 'react-beautiful-dnd';
+import { Draggable } from 'react-beautiful-dnd';
 
-export const Stage = ({ title, description, color, data }) => {
+export const Stage = ({ title, description, color, data , type }) => {
    return (
       <StageContainer>
          <StageHeader color={color}>
             <Title>{title}</Title>
             <Description>{description}</Description>
          </StageHeader>
-         <TasksList>
-            {data?.map(({ _id, title }) => (
-               <TaskCard key={_id} _id={_id} title={title} />
-            ))}
-         </TasksList>
+         <Droppable droppableId={type}>
+            {(provided, snapshot) => (
+               <TasksList
+                  ref={provided.innerRef}
+                  style={{
+                     backgroundColor: snapshot.isDraggingOver
+                        ? color + '2b'
+                        : '#f8f9fa',
+                  }}
+                  {...provided.droppableProps}>
+                  {data?.map(({ _id, title }, index) => (
+                     <Draggable key={_id} index={index} draggableId={_id}>
+                        {(provided, snapshot) => (
+                           <div
+                              ref={provided.innerRef}
+                              {...provided.draggableProps}
+                              {...provided.dragHandleProps}>
+                              <TaskCard _id={_id} title={title} />
+                           </div>
+                        )}
+                     </Draggable>
+                  ))}
+                  {provided.placeholder}
+               </TasksList>
+            )}
+         </Droppable>
       </StageContainer>
    );
 };
