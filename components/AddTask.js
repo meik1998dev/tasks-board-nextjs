@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 import { TextField } from '@mui/material';
 import { addTodos } from '../configs/apis';
 import { useMutation, useQueryClient } from 'react-query';
+import { Loader } from './Loader';
 
 export const AddTask = ({ visible, close }) => {
    const [inputsValue, setInputsValue] = React.useState({
@@ -25,10 +26,6 @@ export const AddTask = ({ visible, close }) => {
          },
       },
    );
-
-   if (mutation.isLoading) {
-      return <span>Loading...</span>;
-   }
 
    return (
       <Modal open={visible} onClose={close}>

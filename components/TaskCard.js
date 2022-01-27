@@ -109,7 +109,7 @@ const Task = styled.div`
       0px 2px 6px rgba(0, 0, 0, 0.04), 0px 0px 1px rgba(0, 0, 0, 0.04);
    border-radius: 16px;
    padding: 3px 24px;
-   margin: 20px 0;
+   margin: 10px 0;
    width: 100%;
    display: flex;
    justify-content: space-between;

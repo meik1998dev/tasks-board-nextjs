@@ -6,6 +6,7 @@ import { fetchTodos, updateTodoStatus } from '../configs/apis';
 import { useMutation, useQueryClient } from 'react-query';
 import { stages } from '../configs/stages';
 import { Stage } from './Stage';
+import { Loader } from './Loader';
 
 const TasksBoard = () => {
    const { isLoading, isError, data, error } = useQuery('todos', fetchTodos);
@@ -22,7 +23,7 @@ const TasksBoard = () => {
    });
 
    if (isLoading) {
-      return <span>Loading...</span>;
+      return <Loader/>;
    }
 
    if (isError) {
