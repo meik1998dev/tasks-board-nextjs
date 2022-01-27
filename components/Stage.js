@@ -17,7 +17,7 @@ export const Stage = ({ title, description, color, data , type }) => {
                   ref={provided.innerRef}
                   style={{
                      backgroundColor: snapshot.isDraggingOver
-                        ? color + '2b'
+                        ? color + '1a'
                         : '#f8f9fa',
                   }}
                   {...provided.droppableProps}>

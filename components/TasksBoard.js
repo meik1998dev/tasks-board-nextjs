@@ -3,6 +3,7 @@ import React from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { useQuery } from 'react-query';
 import { fetchTodos } from '../configs/apis';
+import { stages } from '../configs/stages';
 import { Stage } from './Stage';
 
 const TasksBoard = () => {
@@ -27,7 +28,7 @@ const TasksBoard = () => {
       if (!destination) {
          return;
       }
-      const newList = [...todos]
+      const newList = [...todos];
       const draggedItem = newList.find((item) => item._id === draggableId);
       draggedItem.status = destination.droppableId;
       setTodos(newList);
@@ -38,42 +39,17 @@ const TasksBoard = () => {
          {todos && (
             <Box paddingTop={20} alignItems={'center'} justifyContent='center'>
                <Grid justifyContent={'center'} container spacing={10}>
-                  <Grid item>
-                     <Stage
-                        type='todo'
-                        data={todos.filter((task) => task.status === 'todo')}
-                        title='To Do'
-                        description='Things that need to be done.'
-                        color='#F66568'
-                     />
-                  </Grid>
-                  <Grid item>
-                     <Stage
-                        type='doing'
-                        data={todos.filter((task) => task.status === 'doing')}
-                        title='Doing'
-                        description='What you are doing'
-                        color='#FFC773'
-                     />
-                  </Grid>
-                  <Grid item>
-                     <Stage
-                        type='done'
-                        data={todos.filter((task) => task.status === 'done')}
-                        title='Done'
-                        description='Already done.'
-                        color='#6BE795'
-                     />
-                  </Grid>
-                  <Grid item>
-                     <Stage
-                        type='archive'
-                        data={todos.filter((task) => task.status === 'archive')}
-                        title='Archive'
-                        description='Not important but need to write down.'
-                        color='#7389FF'
-                     />
-                  </Grid>
+                  {stages.map(({ type, title, description, color }) => (
+                     <Grid key={type} item>
+                        <Stage
+                           type={type}
+                           data={todos.filter((task) => task.status === type)}
+                           title={title}
+                           description={description}
+                           color={color}
+                        />
+                     </Grid>
+                  ))}
                </Grid>
             </Box>
          )}
