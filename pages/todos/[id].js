@@ -13,7 +13,7 @@ const TaskDetails = () => {
       fetchTodo(router.query.id),
    );
 
-   if (!isLoading) return <Loader />;
+   if (isLoading) return <Loader />;
 
    if (isError) {
       return <span>Error: {error.message}</span>;
