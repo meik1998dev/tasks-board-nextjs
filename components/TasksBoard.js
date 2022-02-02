@@ -20,7 +20,7 @@ const TasksBoard = () => {
 
    React.useEffect(() => {
       setTodos(data);
-   });
+   },[data]);
 
    if (isLoading) {
       return <Loader/>;

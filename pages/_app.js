@@ -12,7 +12,6 @@ function MyApp({ Component, pageProps }) {
             <link
                rel='preconnect'
                href='https://fonts.gstatic.com'
-               crossorigin
             />
             <link rel='preconnect' href='https://fonts.googleapis.com'></link>
             <link
