@@ -3,7 +3,6 @@ import { useQuery } from 'react-query';
 import { NextSeo } from 'next-seo';
 import { fetchTodo } from '../../configs/apis';
 import { useRouter } from 'next/router';
-import { Grid } from '@mui/material';
 import { Loader } from '../../components/Loader';
 
 const TaskDetails = () => {

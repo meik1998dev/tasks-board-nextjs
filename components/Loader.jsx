@@ -11,7 +11,7 @@ export const Loader = () => {
 };
 
 const LoaderContainer = styled.div`
-    background-color: rgb(162 162 162 / 33%);
+   background-color: rgb(162 162 162 / 33%);
    backdrop-filter: blur(10px);
    height: 100%;
    width: 100%;

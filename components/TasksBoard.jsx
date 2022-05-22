@@ -1,54 +1,21 @@
 import { Box, Grid } from '@mui/material';
 import React from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
-import { useQuery } from 'react-query';
-import { fetchTodos, updateTodoStatus } from '../configs/apis';
-import { useMutation, useQueryClient } from 'react-query';
 import { stages } from '../configs/stages';
-import { Stage } from './Stage';
+import { useGetTodosAndDrag } from '../hooks/useGetTodosAndDrag';
 import { Loader } from './Loader';
+import { Stage } from './Stage/Stage';
 
 const TasksBoard = () => {
-   const { isLoading, isError, data, error } = useQuery('todos', fetchTodos);
-
-   //updating task status
-   const mutation = useMutation((data) => {
-      updateTodoStatus(data);
-   });
-
-   const [todos, setTodos] = React.useState([]);
-
-   React.useEffect(() => {
-      setTodos(data);
-   },[data]);
+   const { isLoading, error, onDragEnd, todos } = useGetTodosAndDrag();
 
    if (isLoading) {
-      return <Loader/>;
+      return <Loader />;
    }
 
-   if (isError) {
+   if (error) {
       return <span>Error: {error.message}</span>;
    }
-
-   const onDragEnd = (result) => {
-      const { destination, source, draggableId } = result;
-
-      if (!destination) {
-         return;
-      }
-
-      //update local state
-      const newList = [...todos];
-      const draggedItem = newList.find((item) => item._id === draggableId);
-      draggedItem.status = destination.droppableId;
-      setTodos(newList);
-
-      //update server state
-      mutation.mutate({
-         id: draggedItem._id,
-         status: destination.droppableId,
-      });
-   };
 
    return (
       <DragDropContext onDragEnd={onDragEnd}>
