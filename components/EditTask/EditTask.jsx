@@ -1,41 +1,22 @@
-import React, { useState } from 'react';
+import React, { memo } from 'react';
 import Modal from '@mui/material/Modal';
 import { ModalContainer, Header, Input, Button } from './EditTask.style';
 import { useEditTodo } from '../../hooks/useEditTodo';
 
-export const EditTask = ({ visible, close, title, subject, id }) => {
-   const [inputsValue, setInputsValue] = useState({
-      title: title,
-      subject: subject,
+const EditTask = ({ visible, close, title, subject, id }) => {
+   const { inputsValue, handleInputChange, handleEditTodo } = useEditTodo({
+      title,
+      subject,
+      id,
+      close,
    });
-
-   const { mutate } = useEditTodo();
-
-   const handleEditTodo = () => {
-      mutate({
-         id: id,
-         title: inputsValue.title,
-         subject: inputsValue.subject,
-      });
-      close();
-   };
-
-   /**
-    * When the input changes, update the state with the new value.
-    */
-   const handleInputChange = ({ target }) => {
-      setInputsValue({
-         ...inputsValue,
-         [target.name]: target.value,
-      });
-   };
 
    return (
       <Modal open={visible} onClose={close}>
          <ModalContainer>
             <Header>Edit Task</Header>
             <Input
-               defaultValue={inputsValue.title}
+               value={inputsValue?.title}
                name='title'
                placeholder='Something I have to do but I do not have time to do'
                onChange={handleInputChange}
@@ -44,7 +25,7 @@ export const EditTask = ({ visible, close, title, subject, id }) => {
                multiline
                rows={6}
                name='subject'
-               defaultValue={inputsValue.subject}
+               value={inputsValue?.subject}
                placeholder='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
                       tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam'
                onChange={handleInputChange}
@@ -54,3 +35,5 @@ export const EditTask = ({ visible, close, title, subject, id }) => {
       </Modal>
    );
 };
+
+export default memo(EditTask);

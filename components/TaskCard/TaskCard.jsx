@@ -8,7 +8,7 @@ import {
    faPen,
 } from '@fortawesome/free-solid-svg-icons';
 import { Box } from '@mui/material';
-import { EditTask } from '../EditTask/EditTask';
+import EditTask from '../EditTask/EditTask';
 import { useDeleteTodo } from '../../hooks/useDeleteTodo';
 import { usePopoverState } from '../../hooks/usePopoverState';
 
@@ -19,12 +19,7 @@ export const TaskCard = ({ _id, subject, title }) => {
 
    const { anchorEl, handleClick, handleClose, open } = usePopoverState();
 
-   const handleDelete = () => {
-      mutate(_id);
-      handleClose();
-   };
-
-   const { mutate, isLoading } = useDeleteTodo();
+   const { isLoading, handleDelete } = useDeleteTodo({ handleClose, _id });
 
    if (isLoading) {
       return <p>Deleting ...</p>;
@@ -88,13 +83,15 @@ export const TaskCard = ({ _id, subject, title }) => {
                   </Box>
                </Box>
             </PopoverMenu>
-            <EditTask
-               title={title}
-               subject={subject}
-               close={() => setIsEditMode(false)}
-               visible={isEditMode}
-               id={_id}
-            />
+            {isEditMode && (
+               <EditTask
+                  title={title}
+                  subject={subject}
+                  close={() => setIsEditMode(false)}
+                  visible={isEditMode}
+                  id={_id}
+               />
+            )}
          </MenuIcon>
       </Task>
    );
